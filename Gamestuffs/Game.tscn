@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy2j4fy35gf3e"]
+
+[ext_resource type="PackedScene" uid="uid://c5yw2i8fi5iqe" path="res://Gamestuffs/Playerstuffs/player.tscn" id="1_hr0v1"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_hr0v1")]
+position = Vector2(88, 127)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-43, 169, 139, 153, 181, 181, 210, 204, 257, 225, 298, 225, 332, 207, 403, 133, 467, 107, 532, 160, 598, 159, 778, 162, 899, 183, 1055, 220, 1190, 282, 1263, 366, 1306, 518, 1384, 667, 1485, 770, 1584, 806, 1728, 806, 1876, 759, 1960, 697, 2037, 596, 2060, 523, 2056, 429, 2043, 356, 2032, 270, 2067, 198, 2131, 172, 2180, 172, 2793, 174, 2863, 210, 2915, 289, 2918, 462, 2853, 655, 2729, 797, 2566, 893, 2376, 966, 2114, 979, 1955, 1042, 1915, 1095, 1915, 1152, 1933, 1201, 1966, 1233, 2022, 1254, 2083, 1259, 4488, 1260, 5533, 406, 5932.88, 406, 6041, 381, 6122, 337, 6174, 289, 6194, 225, 6196, 160, 6168, 98, 6091, 57, 5992, 36, 2745, 39, 2745, -287, 5838, -324, 6282, -242, 6285, 406, 4924, 2313, 2629, 1486, 1326, 1466, 1339, 935, 637, 273, -108, 249, -112, -12, -53, -11)
