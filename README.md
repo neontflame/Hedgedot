@@ -4,7 +4,7 @@ This is what happens when I try to make a Sonic engine by myself!
 
 **Please note** that this engine is still very much **an unfinished work-in-progress!**
 
-...you can~~'t even~~ spin in this! ~~Not yet, at least~~
+...you can ~~'t even~~ spin in this! ~~Not yet, at least~~
 
 ---
 
