@@ -23,7 +23,10 @@ func animate():
 	var animSpeed = (Maths.subpixel_pixel(abs(player.motion.x))[1]) / 3
 	if player.is_on_floor():
 		if abs(player.motion.x) > 0:
-			if player.skidding:
+			if player.spinning:
+				player.plySprite.play("spin", animSpeed)
+				player.plySprite.rotation = -player.rotation
+			elif player.skidding:
 				player.plySprite.play("skid")
 			else:
 				if abs(player.motion.x) >= Maths.desubpixel(0, 6):

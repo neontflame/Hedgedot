@@ -20,7 +20,7 @@ var prevState:PlayerStatePattern = null
 #region Stats
 ## now beware! we are using Subpixels for this
 @export_category('Stats')
-@export var FRICTION:int = 12
+@export var NORMAL_FRICTION:int = 12
 @export var ROLL_FRICTION:int = 6
 @export var ACCEL:int = 12
 @export var AIR_ACCEL:int = 24
@@ -29,6 +29,10 @@ var prevState:PlayerStatePattern = null
 @export var TOP_SPEED:int = 1536
 @export var JUMP_FORCE:int = 1664
 @export var GRAVITY:int = 56
+
+@export var SLOPE_FACTOR:int = 32
+
+@export var CAN_SPIN:bool = true
 #endregion
 
 #region Uhhhhhhhhhhhhh lol
@@ -37,6 +41,8 @@ var practicalAngle:float = 0
 var jumping:bool = false
 var holdingJump:bool = false
 var skidding:bool = false
+
+var spinning:bool = false
 
 var controlLock:int = 0
 #endregion
@@ -59,38 +65,62 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 	var accelCool = Maths.desubpixel(ACCEL)
 	var decelCool = Maths.desubpixel(DECEL)
 	
+	var FRICTION = NORMAL_FRICTION
+	
+	if spinning:
+		decelCool = Maths.desubpixel(ROLL_DECEL)
+		FRICTION = ROLL_FRICTION
+	
 	if not is_on_floor():
 		accelCool = Maths.desubpixel(AIR_ACCEL)
 		decelCool = Maths.desubpixel(AIR_ACCEL)
 	
 	if canControl:
-		# manually transcribed from sonic retro's sonic physics guide
-		if Input.is_action_pressed("ui_left"):
-			if Input.is_action_just_pressed("ui_left"):
-				skidding = (motion.x > 4)
-			if (motion.x > 0):
-				motion.x -= decelCool
-				if (motion.x <= 0):
-					motion.x = -0.5 # deceleration quirk
-			elif (motion.x > Maths.desubpixel(-TOP_SPEED)):
-				skidding = false
-				motion.x -= accelCool
-				if (motion.x <= Maths.desubpixel(-TOP_SPEED)):
-					motion.x = Maths.desubpixel(-TOP_SPEED)
-		elif Input.is_action_pressed("ui_right"):
-			if Input.is_action_just_pressed("ui_right"):
-				skidding = (motion.x < -4)
-			if (motion.x < 0):
-				motion.x += decelCool
-				if (motion.x >= 0):
-					motion.x = 0.5 # deceleration quirk
-			elif (motion.x < Maths.desubpixel(TOP_SPEED)):
-				skidding = false
-				motion.x += accelCool
-				if (motion.x >= Maths.desubpixel(TOP_SPEED)):
-					motion.x = Maths.desubpixel(TOP_SPEED)
+		if spinning:
+			if Input.is_action_pressed("ui_left"):
+				if (motion.x > 0):
+					motion.x -= decelCool
+					if (motion.x <= 0):
+						motion.x = -0.5 # deceleration quirk
+			elif Input.is_action_pressed("ui_right"):
+				if (motion.x < 0):
+					motion.x += decelCool
+					if (motion.x >= 0):
+						motion.x = 0.5 # deceleration quirk
+		else:
+			# manually transcribed from sonic retro's sonic physics guide
+			if Input.is_action_just_pressed("ui_down"):
+				if abs(motion.x) >= Maths.desubpixel(128):
+					spinning = true
+			if Input.is_action_pressed("ui_left"):
+				if Input.is_action_just_pressed("ui_left"):
+					skidding = (motion.x > 4)
+				if (motion.x > 0):
+					motion.x -= decelCool
+					if (motion.x <= 0):
+						motion.x = -0.5 # deceleration quirk
+				elif (motion.x > Maths.desubpixel(-TOP_SPEED)):
+					skidding = false
+					motion.x -= accelCool
+					if (motion.x <= Maths.desubpixel(-TOP_SPEED)):
+						motion.x = Maths.desubpixel(-TOP_SPEED)
+			elif Input.is_action_pressed("ui_right"):
+				if Input.is_action_just_pressed("ui_right"):
+					skidding = (motion.x < -4)
+				if (motion.x < 0):
+					motion.x += decelCool
+					if (motion.x >= 0):
+						motion.x = 0.5 # deceleration quirk
+				elif (motion.x < Maths.desubpixel(TOP_SPEED)):
+					skidding = false
+					motion.x += accelCool
+					if (motion.x >= Maths.desubpixel(TOP_SPEED)):
+						motion.x = Maths.desubpixel(TOP_SPEED)
 	
 	if is_on_floor():
+		setCurrentCollision("rolling" if spinning else "default")
+		if (abs(motion.x) < Maths.desubpixel(128)):
+			spinning = false
 		# Go from The Air into The Slope
 		if cameFromAir:
 			if jumping:
@@ -101,7 +131,7 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 			cameFromAir = false
 		up_direction = get_floor_normal()
 		practicalAngle = get_floor_normal().angle() + PI/2
-		motion.x += Maths.desubpixel(FRICTION) * get_floor_normal().x * 2
+		motion.x += Maths.desubpixel(SLOPE_FACTOR) * get_floor_normal().x
 		
 		# SLIP LOGIC...
 		var angleToCompare = Maths.angle_fixer_deg(rad_to_deg(up_direction.angle()) + 90) 
@@ -122,7 +152,7 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 		
 		# Little additional thing just so that physics dont suck shit
 		if motion.y > 0:
-			motion.y = 4
+			motion.y = 1
 	else:
 		# Get Launched by A Slope !!!
 		if up_direction != Vector2(0.0, -1.0):
@@ -160,6 +190,7 @@ func handleJump(controllable = true):
 			# print('pressed')
 			jumping = true
 			holdingJump = true
+			spinning = false
 			motion.y = Maths.desubpixel(-JUMP_FORCE)
 			onJump()
 	else:
@@ -180,7 +211,7 @@ func _physics_process(delta: float) -> void:
 		controlLock -= 1
 		
 	handlePhysics()
-	debugFuckery()
+	# debugFuckery()
 	curState.update()
 
 #region Utilitary functions
