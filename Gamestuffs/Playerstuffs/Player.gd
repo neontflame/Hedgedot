@@ -54,9 +54,6 @@ func _ready() -> void:
 var cameFromAir:bool = false
 
 func handlePhysics(controllable = true, grav = GRAVITY):
-	#control lock
-	if controlLock > 0:
-		controlLock -= 1
 	var canControl = controllable and controlLock <= 0
 	
 	var accelCool = Maths.desubpixel(ACCEL)
@@ -112,7 +109,7 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 		if Maths.angle_fixer_deg(angleToCompare) > 46 \
 		and Maths.angle_fixer_deg(angleToCompare) < 315:
 			if abs(motion.x) < Maths.desubpixel(128, 2):
-				controlLock = 30
+				controlLock = 15
 				motion.y = 0
 				up_direction = Vector2(0.0, -1.0)
 		
@@ -158,7 +155,6 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 
 func handleJump(controllable = true):
 	# jump!
-	# todo: check if player can hold jump button to go ever so slightly higher
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_up") and controllable:
 			# print('pressed')
@@ -179,6 +175,10 @@ func debugFuckery():
 #endregion
 
 func _physics_process(delta: float) -> void:
+	#control lock
+	if controlLock > 0:
+		controlLock -= 1
+		
 	handlePhysics()
 	debugFuckery()
 	curState.update()
