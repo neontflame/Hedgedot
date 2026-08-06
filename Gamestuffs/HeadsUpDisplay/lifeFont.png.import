@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://67ccyofy5clw"
+path="res://.godot/imported/lifeFont.png-1c235aea2a5d5b266f48dae2c866ca29.fontdata"
+
+[deps]
+
+source_file="res://Gamestuffs/HeadsUpDisplay/lifeFont.png"
+dest_files=["res://.godot/imported/lifeFont.png-1c235aea2a5d5b266f48dae2c866ca29.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("\'A\'-\'H\'", "\'I\' -2 -1", "\'J\'-\'K\'", "\'L\' -2 -2", "\'M\'", "\'N\' -1 -1", "\'O\'-\'Q\'", "\'R\' -1", "\'S\' -1 -1", "\'T\'-\'Z\'", "\'\"\' -4 -2", "\'-\' -2 -1")
+kerning_pairs=PackedStringArray()
+columns=28
+rows=1
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=1

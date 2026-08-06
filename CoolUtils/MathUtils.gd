@@ -1,9 +1,12 @@
 extends Node
 class_name Maths
 
+## converts back from subpixel to pixel
 static func desubpixel(subpix:int, pix:int = 0) -> float:
 	return pix + (float(subpix) / 256);
 
+## converts to subpixel
+## if you're looking to convert a subpixel value to a float, use Maths.desubpixel(val)
 static func subpixel(myFloat:float):
 	return round(myFloat * 256)
 

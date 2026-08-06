@@ -1,0 +1,159 @@
+[gd_scene load_steps=15 format=3 uid="uid://dl6ha5pu4ndek"]
+
+[ext_resource type="Script" uid="uid://dns4ytygq6g1m" path="res://Gamestuffs/HeadsUpDisplay/HUD.gd" id="1_ucwu7"]
+[ext_resource type="Texture2D" uid="uid://b0oyf7ypvhb1r" path="res://Gamestuffs/HeadsUpDisplay/txtScore.png" id="2_0xnnm"]
+[ext_resource type="Texture2D" uid="uid://dahunafkfjmos" path="res://Gamestuffs/Playerstuffs/Sonic/Icon.png" id="2_xt2ux"]
+[ext_resource type="Texture2D" uid="uid://m3xo7mtfhq5" path="res://Gamestuffs/HeadsUpDisplay/lifeX.png" id="3_7cox2"]
+[ext_resource type="Texture2D" uid="uid://dgy5sc83j7u8s" path="res://Gamestuffs/HeadsUpDisplay/txtTimeYellow.png" id="3_f1yyd"]
+[ext_resource type="FontFile" uid="uid://67ccyofy5clw" path="res://Gamestuffs/HeadsUpDisplay/lifeFont.png" id="4_day6k"]
+[ext_resource type="Texture2D" uid="uid://bv36s5obvak6n" path="res://Gamestuffs/HeadsUpDisplay/txtTimeRed.png" id="4_lfyl2"]
+[ext_resource type="Texture2D" uid="uid://docpp84qheb15" path="res://Gamestuffs/HeadsUpDisplay/txtRingsYellow.png" id="5_5fu13"]
+[ext_resource type="FontFile" uid="uid://rpn4bna1ri2x" path="res://Gamestuffs/HeadsUpDisplay/lifeNumbers.png" id="5_ydcev"]
+[ext_resource type="Texture2D" uid="uid://d10jx53rala8n" path="res://Gamestuffs/HeadsUpDisplay/txtRingsRed.png" id="6_5p5f2"]
+[ext_resource type="FontFile" uid="uid://syw1nb4lg4w" path="res://Gamestuffs/HeadsUpDisplay/hudFont.png" id="7_u2jrb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fvc15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f1yyd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f1yyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lfyl2")
+}],
+"loop": true,
+"name": &"urgent",
+"speed": 2.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uij63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5fu13")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5fu13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5p5f2")
+}],
+"loop": true,
+"name": &"urgent",
+"speed": 2.0
+}]
+
+[sub_resource type="FontVariation" id="FontVariation_8gbrd"]
+base_font = ExtResource("4_day6k")
+spacing_glyph = -1
+spacing_space = 4
+
+[node name="HUD" type="Node2D" node_paths=PackedStringArray("lifeCounter")]
+script = ExtResource("1_ucwu7")
+lifeCounter = NodePath("CanvasLayer/BLCorner/LifeCounter")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TLCorner" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreCounter" type="Node2D" parent="CanvasLayer/TLCorner"]
+position = Vector2(16, 8)
+
+[node name="Score" type="Sprite2D" parent="CanvasLayer/TLCorner/ScoreCounter"]
+texture = ExtResource("2_0xnnm")
+centered = false
+
+[node name="Time" type="AnimatedSprite2D" parent="CanvasLayer/TLCorner/ScoreCounter"]
+position = Vector2(0, 16)
+sprite_frames = SubResource("SpriteFrames_fvc15")
+frame_progress = 0.240344
+centered = false
+
+[node name="Rings" type="AnimatedSprite2D" parent="CanvasLayer/TLCorner/ScoreCounter"]
+position = Vector2(0, 32)
+sprite_frames = SubResource("SpriteFrames_uij63")
+animation = &"urgent"
+frame_progress = 0.791423
+centered = false
+
+[node name="ScoreTxt" type="Label" parent="CanvasLayer/TLCorner/ScoreCounter"]
+offset_left = 40.0
+offset_right = 96.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("7_u2jrb")
+text = "0"
+horizontal_alignment = 2
+
+[node name="TimeTxt" type="Label" parent="CanvasLayer/TLCorner/ScoreCounter"]
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 32.0
+theme_override_fonts/font = ExtResource("7_u2jrb")
+text = "0:00"
+horizontal_alignment = 2
+
+[node name="RingsTxt" type="Label" parent="CanvasLayer/TLCorner/ScoreCounter"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 72.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("7_u2jrb")
+text = "0"
+horizontal_alignment = 2
+
+[node name="BLCorner" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="LifeCounter" type="Node2D" parent="CanvasLayer/BLCorner"]
+position = Vector2(16, 16)
+
+[node name="LifeIcon" type="Sprite2D" parent="CanvasLayer/BLCorner/LifeCounter"]
+texture = ExtResource("2_xt2ux")
+centered = false
+
+[node name="LifeX" type="Sprite2D" parent="CanvasLayer/BLCorner/LifeCounter"]
+position = Vector2(24, 12)
+texture = ExtResource("3_7cox2")
+
+[node name="LifeName" type="Label" parent="CanvasLayer/BLCorner/LifeCounter"]
+offset_left = 17.0
+offset_top = 1.0
+offset_right = 68.0
+offset_bottom = 10.0
+theme_override_fonts/font = SubResource("FontVariation_8gbrd")
+theme_override_font_sizes/font_size = 8
+text = "SONIC"
+
+[node name="LifeCount" type="Label" parent="CanvasLayer/BLCorner/LifeCounter"]
+offset_left = 25.0
+offset_top = 9.0
+offset_right = 48.0
+offset_bottom = 18.0
+theme_override_fonts/font = ExtResource("5_ydcev")
+theme_override_font_sizes/font_size = 8
+text = "3"
+horizontal_alignment = 2

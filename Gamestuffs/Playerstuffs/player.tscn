@@ -1,56 +1,17 @@
-[gd_scene load_steps=40 format=3 uid="uid://c5yw2i8fi5iqe"]
+[gd_scene load_steps=10 format=3 uid="uid://c5yw2i8fi5iqe"]
 
-[ext_resource type="Texture2D" uid="uid://daq5b73vn3edc" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/idle.png" id="1_1n56w"]
 [ext_resource type="Script" uid="uid://dwrwchc8dq5qf" path="res://Gamestuffs/Playerstuffs/Player.gd" id="1_7h6ww"]
-[ext_resource type="Texture2D" uid="uid://bcmtv3h6f6hrb" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/balance1.png" id="2_055gk"]
+[ext_resource type="Texture2D" uid="uid://07255gidy50s" path="res://icon.svg" id="2_am3pi"]
 [ext_resource type="Script" uid="uid://oseymq888u58" path="res://Gamestuffs/Playerstuffs/StateMachine.gd" id="2_tcaeb"]
-[ext_resource type="Texture2D" uid="uid://carbq1diijkl5" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/balance2.png" id="3_skerc"]
-[ext_resource type="Texture2D" uid="uid://dloypujhx4qn3" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/death.png" id="4_clr4e"]
 [ext_resource type="Script" uid="uid://dntrkomtt6ixx" path="res://Gamestuffs/Playerstuffs/StatePattern.gd" id="4_swsfk"]
-[ext_resource type="Texture2D" uid="uid://bkxbv6r8a34bo" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/drown.png" id="5_q41wf"]
-[ext_resource type="Texture2D" uid="uid://c05s2sotirama" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/hurt.png" id="6_7woyj"]
-[ext_resource type="Texture2D" uid="uid://58ha2eoaa5ns" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/bored13.png" id="8_532sv"]
-[ext_resource type="Texture2D" uid="uid://bdatmfne2xc4d" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/bored2.png" id="9_k4wyx"]
-[ext_resource type="Texture2D" uid="uid://b2l6c4r3bpunn" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/bored4.png" id="10_ho6gw"]
-[ext_resource type="Texture2D" uid="uid://b81p31two0eg1" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/lookUp.png" id="11_40aoi"]
-[ext_resource type="Texture2D" uid="uid://d30q7rawn28vp" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/push1.png" id="12_yuquy"]
-[ext_resource type="Texture2D" uid="uid://k6201sfxeh2n" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/push2.png" id="13_1sn8q"]
-[ext_resource type="Texture2D" uid="uid://b6vjnmvddpbnr" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/push3.png" id="14_v1fda"]
-[ext_resource type="Texture2D" uid="uid://bmo00ua4x6fdj" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/push4.png" id="15_db15y"]
-[ext_resource type="Texture2D" uid="uid://sm1ofq1sm5al" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/run1.png" id="16_nsq12"]
-[ext_resource type="Texture2D" uid="uid://wq5u7v30dnx" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/run2.png" id="17_xnxtv"]
-[ext_resource type="Texture2D" uid="uid://bjbt0shx4pxlk" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/run3.png" id="18_doiob"]
-[ext_resource type="Texture2D" uid="uid://bi61xmi1aou3d" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/run4.png" id="19_fdowa"]
-[ext_resource type="Texture2D" uid="uid://dijyng4uy2k42" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/skid1.png" id="20_dt1g4"]
-[ext_resource type="Texture2D" uid="uid://bwmtmt85ea26h" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/skid2.png" id="21_a75q8"]
-[ext_resource type="Texture2D" uid="uid://buclx1hrnvdw5" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/spin1.png" id="22_fgyt6"]
-[ext_resource type="Texture2D" uid="uid://bh1ifb30j0i4m" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/spin2.png" id="23_jrf0j"]
-[ext_resource type="Texture2D" uid="uid://c1551eldfy0a0" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/spin3.png" id="24_4eqt0"]
-[ext_resource type="Texture2D" uid="uid://ctun0b0ew4uta" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/spin4.png" id="25_xxjyj"]
-[ext_resource type="Texture2D" uid="uid://ckbaf5bts7sla" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/spin5.png" id="26_uniaw"]
-[ext_resource type="Texture2D" uid="uid://bbol1w16jx8md" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk1.png" id="27_xq86y"]
-[ext_resource type="Texture2D" uid="uid://jdov8noylimf" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk2.png" id="28_0fv7g"]
-[ext_resource type="Texture2D" uid="uid://di7ovdbvlnvd5" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk3.png" id="29_il1gq"]
-[ext_resource type="Texture2D" uid="uid://dt7p083llccek" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk4.png" id="30_p1l4e"]
-[ext_resource type="Texture2D" uid="uid://bokq2ln6ypji1" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk5.png" id="31_6e3y6"]
-[ext_resource type="Texture2D" uid="uid://db3dbky3sfxx4" path="res://Gamestuffs/Playerstuffs/Sonic/Sprites/walk6.png" id="32_a8lrt"]
 [ext_resource type="Script" uid="uid://ua26yrv4uaxp" path="res://Gamestuffs/Playerstuffs/DefaultSt/FloorSt.gd" id="35_skerc"]
 [ext_resource type="Script" uid="uid://b16k3uxwtyl0v" path="res://Gamestuffs/Playerstuffs/DefaultSt/AirSt.gd" id="36_clr4e"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7h6ww"]
-size = Vector2(19, 39)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_swsfk"]
-size = Vector2(15, 29)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_am3pi"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_055gk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_skerc")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"balance",
@@ -58,7 +19,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_clr4e")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"death",
@@ -66,7 +27,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_q41wf")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"drown",
@@ -74,27 +35,15 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_7woyj")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"hurt",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 10.0,
-"texture": ExtResource("1_1n56w")
-}, {
-"duration": 2.0,
-"texture": ExtResource("8_532sv")
-}, {
-"duration": 2.0,
-"texture": ExtResource("9_k4wyx")
-}, {
 "duration": 1.0,
-"texture": ExtResource("8_532sv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_ho6gw")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": false,
 "name": &"idle",
@@ -102,7 +51,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("11_40aoi")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"lookUp",
@@ -110,16 +59,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("12_yuquy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_1sn8q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_v1fda")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_db15y")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"push",
@@ -127,16 +67,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("16_nsq12")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_xnxtv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_doiob")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_fdowa")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"run",
@@ -144,10 +75,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("20_dt1g4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_a75q8")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"skid",
@@ -155,19 +83,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("22_fgyt6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_jrf0j")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_4eqt0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_xxjyj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_uniaw")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"spin",
@@ -175,34 +91,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("27_xq86y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_0fv7g")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_il1gq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_p1l4e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_6e3y6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_a8lrt")
+"texture": ExtResource("2_am3pi")
 }],
 "loop": true,
 "name": &"walk",
 "speed": 15.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7h6ww"]
+size = Vector2(19, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swsfk"]
+size = Vector2(15, 29)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("stateMachine", "plySprite", "defaultColl", "rollingColl")]
 position = Vector2(1, 0)
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_max_angle = 0.918043
-floor_snap_length = 16.0
+floor_snap_length = 22.0
 safe_margin = 1.0
 script = ExtResource("1_7h6ww")
 stateMachine = NodePath("StateMachine")
@@ -218,20 +125,18 @@ drag_left_margin = 0.1
 drag_right_margin = 0.1
 editor_draw_drag_margin = true
 
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_am3pi")
+animation = &"idle"
+autoplay = "idle"
+
 [node name="DefaultCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7h6ww")
 
 [node name="RollingCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_swsfk")
 disabled = true
-
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1)
-sprite_frames = SubResource("SpriteFrames_am3pi")
-animation = &"idle"
-autoplay = "idle"
-frame = 4
-frame_progress = 1.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_tcaeb")

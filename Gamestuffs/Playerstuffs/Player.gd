@@ -37,6 +37,8 @@ var prevState:PlayerStatePattern = null
 
 #region Uhhhhhhhhhhhhh lol
 var motion:Vector2 = Vector2.ZERO
+var prevAirMotion:Vector2 = Vector2.ZERO
+
 var practicalAngle:float = 0
 var jumping:bool = false
 var holdingJump:bool = false
@@ -45,6 +47,8 @@ var skidding:bool = false
 var spinning:bool = false
 
 var controlLock:int = 0
+
+var landedFrames:int = 0
 #endregion
 
 func _ready() -> void:
@@ -104,7 +108,7 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 					motion.x -= accelCool
 					if (motion.x <= Maths.desubpixel(-TOP_SPEED)):
 						motion.x = Maths.desubpixel(-TOP_SPEED)
-			elif Input.is_action_pressed("ui_right"):
+			if Input.is_action_pressed("ui_right"):
 				if Input.is_action_just_pressed("ui_right"):
 					skidding = (motion.x < -4)
 				if (motion.x < 0):
@@ -118,30 +122,36 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 						motion.x = Maths.desubpixel(TOP_SPEED)
 	
 	if is_on_floor():
+		landedFrames += 1
 		setCurrentCollision("rolling" if spinning else "default")
 		if (abs(motion.x) < Maths.desubpixel(128)):
 			spinning = false
+			
+		up_direction = get_floor_normal()
+		practicalAngle = get_floor_normal().angle() + PI/2
+		motion.x += Maths.desubpixel(SLOPE_FACTOR) * get_floor_normal().x
+		
 		# Go from The Air into The Slope
 		if cameFromAir:
 			if jumping:
 				jumping = false
 				holdingJump = false
 				onLand()
-			motion = motion.rotated(-(get_floor_normal().angle() + PI/2))
+			print(landedFrames)
+			motion = prevAirMotion.rotated(-(get_floor_normal().angle() + PI/2))
 			cameFromAir = false
-		up_direction = get_floor_normal()
-		practicalAngle = get_floor_normal().angle() + PI/2
-		motion.x += Maths.desubpixel(SLOPE_FACTOR) * get_floor_normal().x
-		
+			# position += get_floor_normal() * -2
+			
 		# SLIP LOGIC...
-		var angleToCompare = Maths.angle_fixer_deg(rad_to_deg(up_direction.angle()) + 90) 
-		# print(angleToCompare)
-		if Maths.angle_fixer_deg(angleToCompare) > 46 \
-		and Maths.angle_fixer_deg(angleToCompare) < 315:
-			if abs(motion.x) < Maths.desubpixel(128, 2):
-				controlLock = 15
-				motion.y = 0
-				up_direction = Vector2(0.0, -1.0)
+		if landedFrames > 10:
+			var angleToCompare = Maths.angle_fixer_deg(rad_to_deg(up_direction.angle()) + 90) 
+			# print(angleToCompare)
+			if Maths.angle_fixer_deg(angleToCompare) > 46 \
+			and Maths.angle_fixer_deg(angleToCompare) < 315:
+				if (abs(motion.x) + abs(motion.y)) < Maths.desubpixel(128, 2):
+					controlLock = 15
+					motion.y = 0
+					up_direction = Vector2(0.0, -1.0)
 		
 		if (not Input.is_action_pressed("ui_right") \
 		and not Input.is_action_pressed("ui_left")) \
@@ -164,6 +174,8 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 			motion = prevmotion
 		motion.y += Maths.desubpixel(grav)
 		cameFromAir = true
+		landedFrames = 0
+		if prevAirMotion != motion: prevAirMotion = motion
 	
 	handleJump(canControl)
 	# Sonic the Rotationhog
@@ -171,6 +183,7 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 	var deg45 = (PI/4)
 	velocity = motion.rotated(up_direction.angle() + deg90) * 60
 	rotation = round((up_direction.angle() + deg90) / deg90) * -deg90
+	# print("vel: ", motion, " | vel(air): ", prevAirMotion, " | angle: ", rad_to_deg(rotation), " | floor: ", is_on_floor())
 	# and for my next trick i will indent an expression
 	plySprite.rotation = (
 							round(
@@ -179,8 +192,10 @@ func handlePhysics(controllable = true, grav = GRAVITY):
 							* deg45
 						) - rotation
 	
-	if is_on_wall():
+	if is_on_wall() and landedFrames > 10:
+		print("Wall push")
 		motion.x = clampf(motion.x, -1, 1)
+	
 	move_and_slide()
 
 func handleJump(controllable = true):
@@ -201,8 +216,8 @@ func handleJump(controllable = true):
 				motion.y = -4
 
 func debugFuckery():
-	if Input.is_action_just_pressed("ui_down"):
-		toggleCurrentCollision()
+	if Input.is_action_pressed("ui_accept"):
+		motion.x = motion.x  * 1.02
 #endregion
 
 func _physics_process(delta: float) -> void:
@@ -211,7 +226,7 @@ func _physics_process(delta: float) -> void:
 		controlLock -= 1
 		
 	handlePhysics()
-	# debugFuckery()
+	debugFuckery()
 	curState.update()
 
 #region Utilitary functions
