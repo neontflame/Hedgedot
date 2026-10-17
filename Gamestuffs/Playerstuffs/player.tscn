@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5yw2i8fi5iqe"]
+[gd_scene format=3 uid="uid://c5yw2i8fi5iqe"]
 
 [ext_resource type="Script" uid="uid://dwrwchc8dq5qf" path="res://Gamestuffs/Playerstuffs/Player.gd" id="1_7h6ww"]
 [ext_resource type="Texture2D" uid="uid://07255gidy50s" path="res://icon.svg" id="2_am3pi"]
@@ -13,7 +13,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"balance",
 "speed": 2.0
 }, {
@@ -21,7 +21,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"death",
 "speed": 5.0
 }, {
@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"drown",
 "speed": 5.0
 }, {
@@ -37,7 +37,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"hurt",
 "speed": 5.0
 }, {
@@ -45,7 +45,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": false,
+"loop": 0,
 "name": &"idle",
 "speed": 2.0
 }, {
@@ -53,7 +53,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"lookUp",
 "speed": 5.0
 }, {
@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"push",
 "speed": 2.0
 }, {
@@ -69,7 +69,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 15.0
 }, {
@@ -77,7 +77,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"skid",
 "speed": 5.0
 }, {
@@ -85,7 +85,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"spin",
 "speed": 15.0
 }, {
@@ -93,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_am3pi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 15.0
 }]
@@ -104,8 +104,7 @@ size = Vector2(19, 39)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swsfk"]
 size = Vector2(15, 29)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("stateMachine", "plySprite", "defaultColl", "rollingColl")]
-position = Vector2(1, 0)
+[node name="Player" type="CharacterBody2D" unique_id=1398295792 node_paths=PackedStringArray("stateMachine", "plySprite", "defaultColl", "rollingColl")]
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_max_angle = 0.918043
@@ -117,7 +116,7 @@ plySprite = NodePath("PlayerSprite")
 defaultColl = NodePath("DefaultCollision")
 rollingColl = NodePath("RollingCollision")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=475144774]
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -125,33 +124,33 @@ drag_left_margin = 0.1
 drag_right_margin = 0.1
 editor_draw_drag_margin = true
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=710515956]
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_am3pi")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="DefaultCollision" type="CollisionShape2D" parent="."]
+[node name="DefaultCollision" type="CollisionShape2D" parent="." unique_id=1604160417]
 shape = SubResource("RectangleShape2D_7h6ww")
 
-[node name="RollingCollision" type="CollisionShape2D" parent="."]
+[node name="RollingCollision" type="CollisionShape2D" parent="." unique_id=1143885760]
 shape = SubResource("RectangleShape2D_swsfk")
 disabled = true
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." unique_id=150449831]
 script = ExtResource("2_tcaeb")
 
-[node name="Default" type="Node" parent="StateMachine"]
+[node name="Default" type="Node" parent="StateMachine" unique_id=313863094]
 script = ExtResource("4_swsfk")
 
-[node name="Floor" type="Node" parent="StateMachine"]
+[node name="Floor" type="Node" parent="StateMachine" unique_id=186311923]
 script = ExtResource("35_skerc")
 metadata/_custom_type_script = "uid://dntrkomtt6ixx"
 
-[node name="Air" type="Node" parent="StateMachine"]
+[node name="Air" type="Node" parent="StateMachine" unique_id=1466738640]
 script = ExtResource("36_clr4e")
 metadata/_custom_type_script = "uid://dntrkomtt6ixx"
 
-[node name="Hurt" type="Node" parent="StateMachine"]
+[node name="Hurt" type="Node" parent="StateMachine" unique_id=598784896]
 script = ExtResource("4_swsfk")
 metadata/_custom_type_script = "uid://dntrkomtt6ixx"
